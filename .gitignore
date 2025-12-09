@@ -1,0 +1,34 @@
+# Build folders
+bin/
+obj/
+
+# Visual Studio cache
+.vs/
+
+# User settings
+*.user
+*.suo
+
+# Database files
+*.mdf
+*.ldf
+*.db
+*.log
+
+# Node modules
+node_modules/
+
+# Environment files
+.env
+
+# Log files
+*.log
+
+# EF Core migrations model snapshots (optional)
+*Migrations/*ModelSnapshot.cs
+
+# Publish files
+publish/
+
+# JSON settings (override files)
+appsettings.*.json
