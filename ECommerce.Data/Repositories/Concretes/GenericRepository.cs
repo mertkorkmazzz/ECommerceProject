@@ -1,4 +1,5 @@
 ﻿using ECommerce.Data.Context;
+using ECommerce.Data.Repositories.Abstracts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECommerce.Data.Repositories.Abstracts
+namespace ECommerce.Data.Repositories.Concretes
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
@@ -31,12 +32,12 @@ namespace ECommerce.Data.Repositories.Abstracts
 
         public void Delete(T entity)
         {
-           _dbset.Remove(entity);
+            _dbset.Remove(entity);
         }
 
         public async Task<List<T>> GetAllAsync()
         {
-           return await _dbset.ToListAsync();
+            return await _dbset.ToListAsync();
         }
 
         public async Task<T> GetByIdAsync(int id)
