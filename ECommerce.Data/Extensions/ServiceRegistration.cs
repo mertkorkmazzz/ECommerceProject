@@ -1,4 +1,7 @@
 ﻿using ECommerce.Data.Context;
+using ECommerce.Data.Repositories.Abstracts;
+using ECommerce.Data.Repositories.Concretes;
+using ECommerce.Data.UnitOfWorks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +21,13 @@ namespace ECommerce.Data.Extensions
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
+
     }
 }

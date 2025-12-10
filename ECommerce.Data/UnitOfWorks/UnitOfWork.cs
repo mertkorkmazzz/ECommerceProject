@@ -17,14 +17,14 @@ namespace ECommerce.Data.UnitOfWorks
         }
 
 
-        public ValueTask DisposeAsync()
+        public async ValueTask DisposeAsync()
         {
-            throw new NotImplementedException();
+            await _dbContext.DisposeAsync();
         }
 
-        public Task<int> SaveAsync()
+        public async Task<int> SaveAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.SaveChangesAsync();
         }
     }
 }
