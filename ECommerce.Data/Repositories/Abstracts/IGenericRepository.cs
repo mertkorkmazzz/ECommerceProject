@@ -8,11 +8,11 @@ namespace ECommerce.Data.Repositories.Abstracts
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<List<T>> GetAllAsync();
-        Task<T> GetByIdAsync(int ıd);
         Task AddAsync(T entity);
         void Update(T entity);
-        void Delete(T ıd);
+        void Delete(T entity);
+        Task<T> GetByIdAsync(int id);
+        Task<List<T>> GetAllAsync();
 
     }
 }
