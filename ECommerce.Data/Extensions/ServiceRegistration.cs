@@ -16,16 +16,16 @@ namespace ECommerce.Data.Extensions
     public static class ServiceRegistration
     {
 
-        //veritabanı bağlantısı için gerekli servis ekleme metodu
         public static void AddDataLayer(this IServiceCollection services , IConfiguration configuration)
         {
+            // DbContext Configuration
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-
+            // Repository  Configuration
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-
+            // Unit of Work Configuration
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
