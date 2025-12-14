@@ -18,14 +18,12 @@ namespace ECommerce.Data.Extensions
 
         public static void AddDataLayer(this IServiceCollection services , IConfiguration configuration)
         {
-            // DbContext Configuration
+            // DbContext
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(
+                    configuration.GetConnectionString("DefaultConnection")));
 
-            // Repository  Configuration
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
-            // Unit of Work Configuration
+            // Unit of Work (Repository'leri içeriden yönetir)
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 

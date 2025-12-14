@@ -1,5 +1,6 @@
 
 using ECommerce.Data.Extensions;
+using ECommerce.Services.Extensions;
 
 namespace EcommerceApı
 {
@@ -11,6 +12,7 @@ namespace EcommerceApı
 
             // Add services to the container.
             builder.Services.AddDataLayer(builder.Configuration);
+            builder.Services.AddBusinessServices();
 
             // Auto Mapper Configurations
             builder.Services.AddAutoMapper(typeof(Program));
