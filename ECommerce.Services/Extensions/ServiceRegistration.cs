@@ -15,6 +15,9 @@ namespace ECommerce.Services.Extensions
         public static IServiceCollection AddBusinessServices(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IShippingService, ShippingService>();
 
             // AutoMapper (Service katmanındaki profilleri tarar)
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
