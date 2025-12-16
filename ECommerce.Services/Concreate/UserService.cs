@@ -56,7 +56,7 @@ namespace ECommerce.Services.Concreate
 
         public async Task<UserListDto> GetByIdAsync(int id)
         {
-           var user =await _unitOf.Repository<User>().GetByIdAsync(id);
+           var user = await _unitOf.Repository<User>().GetByIdAsync(id);
 
             return user == null ? null : _mapper.Map<UserListDto>(user);
         }
