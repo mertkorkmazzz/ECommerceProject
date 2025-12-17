@@ -14,5 +14,7 @@ namespace ECommerce.Data.Repositories.Abstracts
         Task<T> GetByIdAsync(int id);
         Task<List<T>> GetAllAsync();
 
+        public IQueryable<T> GetQuery();
+
     }
 }

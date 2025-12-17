@@ -45,6 +45,11 @@ namespace ECommerce.Data.Repositories.Concretes
             return await _dbset.FindAsync(id);
         }
 
+        public IQueryable<T> GetQuery()
+        {
+           return _dbset.AsQueryable();
+        }
+
         public void Update(T entity)
         {
             _dbset.Update(entity);
