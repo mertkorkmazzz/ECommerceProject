@@ -13,8 +13,9 @@ namespace ECommerce.Data.Repositories.Abstracts
         void Delete(T entity);
         Task<T> GetByIdAsync(int id);
         Task<List<T>> GetAllAsync();
-
         public IQueryable<T> GetQuery();
+        void DeleteRange(IEnumerable<T> entities);
+
 
     }
 }

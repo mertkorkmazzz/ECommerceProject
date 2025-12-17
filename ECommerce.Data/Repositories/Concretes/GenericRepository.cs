@@ -35,6 +35,11 @@ namespace ECommerce.Data.Repositories.Concretes
             _dbset.Remove(entity);
         }
 
+        public void DeleteRange(IEnumerable<T> entities)
+        {
+            _dbset.RemoveRange(entities);
+        }
+
         public async Task<List<T>> GetAllAsync()
         {
             return await _dbset.ToListAsync();

@@ -19,6 +19,9 @@ namespace ECommerce.Services.Extensions
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IShippingService, ShippingService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<ICartService, CartService>();
+           
 
             // AutoMapper (Service katmanındaki profilleri tarar)
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
