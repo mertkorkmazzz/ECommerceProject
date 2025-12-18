@@ -1,3 +1,5 @@
 
 
-1. shipping ve category tablolarýda bitti 
+1. servisler bitti ÇALIÞMA MANTIKLARINI ANLA
+
+2. Daha sonra controllerlara geçebilirsin

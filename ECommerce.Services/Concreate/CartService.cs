@@ -29,16 +29,19 @@ namespace ECommerce.Services.Concreate
 
 
 
-
+        // kullancı ürün eklemek istediğinde sepet var mı yok mu kontrol et yoksa oluştur
+        // varsa aynı üründen var mı kontrol et varsa adet arttır yoksa yeni ürün ekle
         public async Task AddToCartAsync(int userId, AddToCartDto dto)
         {
+            // Repositorieleri al
             var cartRepo = _unitOfWork.Repository<Cart>();
             var cartItemRepo = _unitOfWork.Repository<CartItem>();
 
+
             var cart = await cartRepo
                 .GetQuery()
-                .Include(c => c.CartItems)
-                .FirstOrDefaultAsync(c => c.UserId == userId);
+                .Include(c => c.CartItems) // ınclude ile cartItemları da yükle normalde sadece cart ı getirir
+                .FirstOrDefaultAsync(c => c.UserId == userId);// şarta göre getir yani userId ye göre getir
 
             // Kullanıcının sepeti yoksa oluştur
             if (cart == null)
@@ -76,6 +79,9 @@ namespace ECommerce.Services.Concreate
             await _unitOfWork.SaveAsync();
         }
 
+
+        // Tüm sepeti temizle
+        // ya sipariş verdik ten sonra ya da kullanıcı sepeti boşaltmak istediğinde temizlenir
         public async Task ClearCartAsync(int userId)
         {
             var cart = await _unitOfWork
@@ -87,26 +93,35 @@ namespace ECommerce.Services.Concreate
             if (cart == null)
                 return;
 
-            _unitOfWork.Repository<CartItem>().DeleteRange(cart.CartItems); // delete de hata verdi 2 tane olduğu için deleteRange yaptım(araştır)
+            _unitOfWork.Repository<CartItem>().DeleteRange(cart.CartItems); // delete sadece 1 tane entity silmeye izin verir ama deleranger ile birden fazla entity silebiliriz
             await _unitOfWork.SaveAsync();
         }
 
+        // Kullanıcının sepetini getir
+        // yoksa boş sepet döner
         public async Task<CartDto> GetCartAsync(int userId)
         {
             var cart = await _unitOfWork.Repository<Cart>()
               .GetQuery()
               .Include(c => c.CartItems)
-                  .ThenInclude(ci => ci.Product)
+                  .ThenInclude(ci => ci.Product) // ThenInclude ne işe yarar : cartItemların içindeki productları da yükler 
               .FirstOrDefaultAsync(c => c.UserId == userId);
 
+            // Kullanıcının sepeti yoksa boş bir sepet döneriz if else lede yapabilirsik ama gereksiz kod olurdu onun yerine kullanıcıaya sadece boş bir sepet döneriz
             if (cart == null)
-                return new CartDto { UserId = userId };
+                return new CartDto 
+                {
+                    UserId = userId 
+                };
 
+            // burda cart entity sini cart dto ya mapliyoruz bu sayede sadece gerekli alanları dönebiliriz
             return _mapper.Map<CartDto>(cart);
 
 
         }
 
+        // Sepetten ürün silme
+        // kullanıcı sepetten ürün silmek istediğinde çağrılır
         public async Task RemoveFromCartAsync(int userId, int productId)
         {
             var cart = await _unitOfWork
