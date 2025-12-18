@@ -26,10 +26,10 @@ namespace ECommerce.Services.Concreate
 
 
 
-        // Kullanıcının sepetindeki ürünleri veya belirli bir siparişi veritabanına kaydetmek için kullanılır.
+        // Yeni bir sipariş oluşturur.
         public async Task CreateOrderAsync(CreateOrderDto createOrderDto)
         {
-            var order = _mapper.Map<Order>(createOrderDto);
+            var order = _mapper.Map<Order>(createOrderDto); // DTO'dan Order varlığına dönüştürme
             order.OrderDate = DateTime.Now; // siparişin oluşturulma tarihi 
 
 

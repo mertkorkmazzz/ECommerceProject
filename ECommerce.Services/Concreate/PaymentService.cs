@@ -23,7 +23,7 @@ namespace ECommerce.Services.Concreate
         }
 
 
-
+        // ödeme oluşturma
         public async Task<PaymentResultDto> CreatePaymentAsync(PaymentCreateDto dto)
         {
             var payment = _mapper.Map<Payment>(dto);
@@ -43,6 +43,8 @@ namespace ECommerce.Services.Concreate
             };
         }
 
+
+        // ödeme durumu sorgulama
         public async Task<PaymentResultDto> GetPaymentStatusAsync(int paymentId)
         {
             var payment = await _unitOfWork.Repository<Payment>().GetByIdAsync(paymentId);
