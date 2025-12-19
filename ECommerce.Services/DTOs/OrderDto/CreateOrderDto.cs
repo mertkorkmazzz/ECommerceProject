@@ -11,5 +11,6 @@ namespace ECommerce.Services.DTOs.OrderDto
         public int UserId { get; set; }
         public List<OrderItemDto> Items { get; set; }
         public decimal TotalPrice { get; set; }
+        public string Address { get; set; }
     }
 }

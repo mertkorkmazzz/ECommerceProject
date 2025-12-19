@@ -19,6 +19,7 @@ namespace ECommerce.Entities.Entities
         public string City { get; set; }
         public string PostalCode { get; set; }
         public DateTime ShippedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         public string Status { get; set; } // Hazırlanıyor, yolda, teslim edildi
     }
 }

@@ -25,26 +25,24 @@ namespace ECommerce.Services.Concreate
 
 
 
-
-        // Yeni bir sipariş oluşturur.
-        public async Task CreateOrderAsync(CreateOrderDto createOrderDto)
+        public async Task<Order> CreateOrderAsync(CreateOrderDto createOrderDto)
         {
-            var order = _mapper.Map<Order>(createOrderDto); // DTO'dan Order varlığına dönüştürme
-            order.OrderDate = DateTime.Now; // siparişin oluşturulma tarihi 
+            var order = _mapper.Map<Order>(createOrderDto);
+            order.OrderDate = DateTime.Now;
 
-
-            foreach(var item in order.OrderItems)
+            foreach (var item in order.OrderItems)
             {
                 var product = await _unitOfWork.Repository<Product>().GetByIdAsync(item.ProductId);
                 if (product == null)
-                    throw new Exception($"product ıd {item.ProductId} bulunamadı");
-
+                    throw new Exception($"Product ID {item.ProductId} bulunamadı");
 
                 item.UnitPrice = (int)product.Price;
             }
 
             await _unitOfWork.Repository<Order>().AddAsync(order);
             await _unitOfWork.SaveAsync();
+
+            return order; // Order nesnesini döndür
         }
 
         // Sistem üzerindeki tüm siparişleri getirir.
@@ -88,5 +86,7 @@ namespace ECommerce.Services.Concreate
 
             return _mapper.Map<List<OrderListDto>>(userorders);
         }
+
+        
     }
 }

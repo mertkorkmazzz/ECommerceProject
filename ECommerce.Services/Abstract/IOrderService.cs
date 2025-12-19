@@ -1,4 +1,5 @@
-﻿using ECommerce.Services.DTOs.OrderDto;
+﻿using ECommerce.Entities.Entities;
+using ECommerce.Services.DTOs.OrderDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace ECommerce.Services.Abstract
     public interface IOrderService
     {
         // Kullanıcının sepetindeki ürünleri veya belirli bir siparişi veritabanına kaydetmek için kullanılır.
-        Task CreateOrderAsync(CreateOrderDto createOrderDto);
+        Task<Order> CreateOrderAsync(CreateOrderDto createOrderDto);
 
         // kullacının siparişlerini getirir
         Task<List<OrderListDto>> GetOrdersByUserIdAsync(int userId);
