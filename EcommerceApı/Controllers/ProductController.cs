@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace EcommerceApı.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class ProductController : Controller
+    [Route("api/[controller]")]
+    public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
 
@@ -48,7 +48,7 @@ namespace EcommerceApı.Controllers
             // BadRequest ile notfound arasındaki fark : BadRequest, istemcinin hatalı bir istek gönderdiğini belirtirken, NotFound, istemcinin istediği kaynağın sunucuda bulunamadığını belirtir.
 
             await _productService.CreateAsync(createDto);
-            return Ok("ürün başarılı eklendi");
+            return StatusCode(StatusCodes.Status201Created);
         }
 
 
