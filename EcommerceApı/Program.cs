@@ -1,5 +1,6 @@
-
+using ECommerce.Data.Context;
 using ECommerce.Data.Extensions;
+using ECommerce.Data.Seed;
 using ECommerce.Services.Extensions;
 
 namespace EcommerceApı
@@ -18,11 +19,19 @@ namespace EcommerceApı
             builder.Services.AddAutoMapper(typeof(Program));
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // 🔽 app SADECE BURADA OLUŞUR
             var app = builder.Build();
+
+            // 🔽 SEED KODU BURAYA
+            if (app.Environment.IsDevelopment())
+            {
+                using var scope = app.Services.CreateScope();
+                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                FakeDataSeeder.SeedAsync(context).Wait();
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -32,12 +41,8 @@ namespace EcommerceApı
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
             app.MapControllers();
-
             app.Run();
         }
     }
